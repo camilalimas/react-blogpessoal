@@ -1,9 +1,9 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import Usuario from "../../models/Usuario";
 import { cadastrarUsuario } from "../../services/Service";
 import "./Cadastro.css";
 import { RotatingLines } from "react-loader-spinner";
+import type Usuario from "../../models/Usuario";
+import { useState, useEffect, ChangeEvent, type FormEvent } from "react";
 
 function Cadastro() {
   const navigate = useNavigate();
