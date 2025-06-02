@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RotatingLines } from "react-loader-spinner";
 import { useNavigate, useParams } from "react-router-dom";
