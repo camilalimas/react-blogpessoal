@@ -3,7 +3,7 @@ import { cadastrarUsuario } from "../../services/Service";
 import "./Cadastro.css";
 import { RotatingLines } from "react-loader-spinner";
 import type Usuario from "../../models/Usuario";
-import { useState, useEffect, ChangeEvent, type FormEvent } from "react";
+import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
 
 function Cadastro() {
   const navigate = useNavigate();
