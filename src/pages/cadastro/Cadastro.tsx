@@ -9,16 +9,18 @@ function Cadastro() {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const [confirmaSenha, setConfirmaSenha] = useState<string>("");
 
-  const [usuario, setUsuario] = useState<Usuario>({
+  const initialState: Usuario = {
     id: 0,
     nome: "",
     usuario: "",
     senha: "",
     foto: "",
-  });
+    postagem: null,
+  };
+
+  const [usuario, setUsuario] = useState<Usuario>(initialState);
 
   useEffect(() => {
     if (usuario.id !== 0) {
@@ -41,6 +43,11 @@ function Cadastro() {
     setConfirmaSenha(e.target.value);
   }
 
+  function resetForm() {
+    setUsuario(initialState);
+    setConfirmaSenha("");
+  }
+
   async function cadastrarNovoUsuario(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -52,13 +59,13 @@ function Cadastro() {
         alert("Usuário cadastrado com sucesso!");
       } catch (error) {
         alert("Erro ao cadastrar o usuário!");
+        resetForm();
       }
     } else {
       alert(
         "Dados do usuário inconsistentes! Verifique as informações do cadastro."
       );
-      setUsuario({ ...usuario, senha: "" });
-      setConfirmaSenha("");
+      resetForm();
     }
 
     setIsLoading(false);
@@ -85,9 +92,7 @@ function Cadastro() {
               placeholder="Nome"
               className="border-2 border-slate-700 rounded p-2"
               value={usuario.nome}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                atualizarEstado(e)
-              }
+              onChange={atualizarEstado}
             />
           </div>
           <div className="flex flex-col w-full">
@@ -99,9 +104,7 @@ function Cadastro() {
               placeholder="Usuario"
               className="border-2 border-slate-700 rounded p-2"
               value={usuario.usuario}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                atualizarEstado(e)
-              }
+              onChange={atualizarEstado}
             />
           </div>
           <div className="flex flex-col w-full">
@@ -113,9 +116,7 @@ function Cadastro() {
               placeholder="Foto"
               className="border-2 border-slate-700 rounded p-2"
               value={usuario.foto}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                atualizarEstado(e)
-              }
+              onChange={atualizarEstado}
             />
           </div>
           <div className="flex flex-col w-full">
@@ -127,9 +128,7 @@ function Cadastro() {
               placeholder="Senha"
               className="border-2 border-slate-700 rounded p-2"
               value={usuario.senha}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                atualizarEstado(e)
-              }
+              onChange={atualizarEstado}
             />
           </div>
           <div className="flex flex-col w-full">
@@ -141,17 +140,15 @@ function Cadastro() {
               placeholder="Confirmar Senha"
               className="border-2 border-slate-700 rounded p-2"
               value={confirmaSenha}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                handleConfirmarSenha(e)
-              }
+              onChange={handleConfirmarSenha}
             />
           </div>
           <div className="flex justify-around w-full gap-8">
             <button
-              type="reset"
+              type="button"
               className="rounded text-white bg-red-400 
                 hover:bg-red-700 w-1/2 py-2"
-              onClick={retornar}
+              onClick={resetForm}
             >
               Cancelar
             </button>
